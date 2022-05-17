@@ -1,0 +1,11 @@
+{
+  "Cadastro": [
+    {
+      "nome": "jean",
+      "sobrenome": "Everton",
+      "sexo": "M",
+      "data_nasc": "04/11/1996",
+      "idade": "25"
+    }
+  ]
+}
