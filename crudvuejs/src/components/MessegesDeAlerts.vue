@@ -1,6 +1,8 @@
 <template>
-  <div class="alert alert-success" role="alert" :class="estiloDaMensagem">
-       {{ txt_mensagem }}
+  <div>
+    <div class="alert sucesso text-center" :class="estilo" role="alert" >
+      {{ txt_mensagem }}
+    </div>
   </div>
 </template>
 
@@ -10,19 +12,9 @@ export default {
   props: {
     txt_mensagem:String,
     estilo: {
-      default: 'sucesso'
-
-    },
-    computed: {
-      estiloDaMensagem: function () {
-        let estiloDaMensagem;
-        if (this.estilo == 'sucesso' || !this.estilo) {
-          estiloDaMensagem = 'alert-success';
-        } else if (this.estilo == 'erro') {
-          estiloDaMensagem = 'alert-danger';
-        }
-        return estiloDaMensagem;
-      }
+      required: false,
+      default: 'sucesso',
+      type: String
     }
   }
 }
