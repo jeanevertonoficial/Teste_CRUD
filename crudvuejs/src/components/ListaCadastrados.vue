@@ -48,6 +48,12 @@
 
   <div class="container-md">
     <p class="alert alert-warning" v-if="cadastros == 0">Nenhum resgistro encontrado...</p>
+      <p style="font-weight: bold" class="text-xl-center">Super Mario World</p>
+    <div class="d-flex justify-content-center">
+      <iframe src="https://www.retrogames.cc/embed/42720-super-marina-world.html" width="600" height="450"
+              frameborder="no" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"
+              scrolling="no"></iframe>
+    </div>
   </div>
 
 </template>
