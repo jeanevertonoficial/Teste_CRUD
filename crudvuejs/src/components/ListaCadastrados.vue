@@ -1,17 +1,22 @@
 <template>
 
-      <MessegesDeAlerts
-          class="mensagem"
-          :txt_mensagem="msg"
-          :class="estiloDaMensagem"
-          v-show="msg"
-      />
+  <MessegesDeAlerts
+      class="mensagem"
+      :txt_mensagem="msg"
+      :class="estiloDaMensagem"
+      v-show="msg"
+  />
 
   <TituloPagina :titulo="titulo"/>
 
   <div class="container-md d-flex flex-wrap justify-content-lg-start m-auto">
-    <div class="card flex-wrap mb-3 mt-3 m-lg-3"  @change="updatedcadastrado($event, dados.id)" style="max-width: 18rem;" v-for="dados in cadastros"
-         :key="dados.id">
+    <div
+        class="card flex-wrap mb-3 mt-3 m-lg-3"
+        style="max-width: 18rem;"
+        v-for="dados in cadastros"
+        :key="dados.id"
+        @change="updatedcadastrado($event, dados.id)"
+    >
       <div class="card-header ">
         <h5 class="card-title text-capitalize">#{{ dados.id }}</h5>
       </div>
@@ -41,6 +46,10 @@
     </div>
   </div>
 
+  <div class="container-md">
+    <p class="alert alert-warning" v-if="cadastros == 0">Nenhum resgistro encontrado...</p>
+  </div>
+
 </template>
 
 <script>
@@ -65,7 +74,7 @@ export default {
       excluir: 'Excluir',
 
       // api
-      cadastros: null
+      cadastros: []
     }
   },
   methods: {
@@ -77,6 +86,7 @@ export default {
 
       this.cadastros = data;
 
+      //console.log(this.cadastros)
     },
 
     async deleteUsuario(id) {
@@ -89,7 +99,7 @@ export default {
 
       // mensagem após excluir usuario
       this.estilo = 'sucesso'
-      this.msg = `Usuário N°${res.id}, Removido com sucesso!`
+      this.msg = `Usuário de N°${res.id}, Removido com sucesso!`
 
       setTimeout(() => this.msg = "", 3000)
 
@@ -97,11 +107,12 @@ export default {
 
     },
 
-    async updatedcadastrado( event, id ) {
+    async updatedcadastrado(event, id) {
 
       const dados = event.target.value;
 
-      const dataJson = JSON.stringify({ cadastrados: dados });
+      // metodo JSON.stringify converte dados do javascript para json
+      const dataJson = JSON.stringify({nome: dados});
 
       const req = await fetch(`http://localhost:3000/Cadastrados/${id}`, {
         // PATCH é como o update mais só atualiza oque foi mudado.
@@ -113,9 +124,9 @@ export default {
       const res = await req.json();
 
       // Mensagem
-      this.msg = `Cadastro #${res.id} foi atualizado com sucesso!`
+      this.msg = `#${res.id} atualizado com sucesso (RECARREGA A PÁGINA) para ver a atualização!`
 
-      setTimeout(() => this.msg = "", 3000)
+      setTimeout(() => this.msg = "", 3500)
 
     }
 
@@ -144,16 +155,20 @@ export default {
   justify-content: center;
   flex-direction: column;
 }
+
 .card {
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.11);
 }
+
 .botao-personalizado {
   margin: 5px;
 }
+
 .card-text label, .card-title label {
   font-weight: bold;
 }
-.card-text input{
+
+.card-text input {
   border: none;
   border-radius: 5px;
 }
@@ -167,7 +182,7 @@ export default {
   margin: 10px auto;
 }
 
-@media screen and (max-width: 551px){
+@media screen and (max-width: 551px) {
   .container-md {
     justify-content: center;
   }

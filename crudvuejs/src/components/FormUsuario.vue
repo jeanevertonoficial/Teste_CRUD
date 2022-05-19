@@ -131,9 +131,11 @@ export default {
 
         const rest = await req.json();
 
+        this.requisicao = rest;
+
         this.estilo = 'sucesso';
         this.campo_info = 'box-shadom: 0px 0px 5px green;'
-        this.msg = `Cadastro de N°${rest.id}, realizado com sucesso!`
+        this.msg = `Cadastro realizado com sucesso!`
 
         setTimeout(() => this.msg = "", 3000)
         setTimeout(() => this.campo_info = "box-shadom: initial", 2000)
